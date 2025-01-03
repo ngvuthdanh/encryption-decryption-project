@@ -1,13 +1,11 @@
 from cryptography.fernet import Fernet
 
-# Generate a key (use this once and store it securely)
 def generate_key():
     key = Fernet.generate_key()
     with open("key.key", "wb") as key_file:
         key_file.write(key)
     print("Key generated and saved to 'key.key'.")
-
-# Load the key from a file
+    
 def load_key():
     try:
         with open("key.key", "rb") as key_file:
@@ -16,7 +14,6 @@ def load_key():
         print("Key file not found. Please generate a key first using 'generate_key()'.")
         return None
 
-# Encrypt a message
 def encrypt_message(message):
     key = load_key()
     if key is None:
@@ -26,7 +23,6 @@ def encrypt_message(message):
     encrypted_message = fernet.encrypt(message.encode())
     return encrypted_message
 
-# Decrypt a message
 def decrypt_message(encrypted_message):
     key = load_key()
     if key is None:
